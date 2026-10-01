@@ -263,6 +263,91 @@ h3 {
     color: #777;
 }
 
+.seccion-consulta {
+    max-width: 700px;
+}
+
+.seccion-consulta form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 6px;
+}
+
+.campo input,
+.campo textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.campo textarea {
+    resize: vertical;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #f39c12;
+}
+
+.error {
+    min-height: 1.3rem;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #e74c3c;
+}
+
+.btn-enviar {
+    grid-column: 1 / -1;
+    background-color: #111;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-enviar:hover {
+    background-color: #f39c12;
+}
+
+#resultado-consulta {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-weight: 600;
+    color: #27ae60;
+}
+
+#resultado-consulta:empty {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .navegacion ul {
         flex-direction: column; 
@@ -280,5 +365,9 @@ h3 {
 
     .tarjeta-producto {
         width: 100%;
+    }
+    .seccion-consulta form {
+        grid-template-columns: 1fr;
+        padding: 20px;
     }
 }
