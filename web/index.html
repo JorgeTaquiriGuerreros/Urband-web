@@ -21,6 +21,7 @@
                 <li><a href="#catalogo">Catálogo</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#" id="carrito" onclick="finalizarCompra(); return false;">Carrito (0) - S/ 0.00</a></li>
             </ul>
         </nav>
     </header>
@@ -57,7 +58,7 @@
                     <h3>Polera Oversize Streetwear</h3>
                     <p class="precio">S/ 89.00</p>
                     <p class="descripcion">Polera con capucha de corte holgado urbano. Mezcla de algodón de alta densidad.</p>
-                    <a href="#" class="btn-comprar">Comprar ahora</a>
+                    <a href="#" class="btn-comprar" onclick="agregarAlCarrito(89); return false;">Comprar ahora</a>
                 </article>
 
                 <article class="tarjeta-producto">
@@ -82,7 +83,7 @@
                     <h3>Polo Oversize Urban</h3>
                     <p class="precio">S/ 55.00</p>
                     <p class="descripcion">Polo de corte amplio inspirado en las corrientes del streetwear internacional.</p>
-                    <a href="#" class="btn-comprar">Comprar ahora</a>
+                    <a href="#" class="btn-comprar" onclick="agregarAlCarrito(55); return false;">Comprar ahora</a>
                 </article>
 
                 <article class="tarjeta-producto">
@@ -107,7 +108,7 @@
                     <h3>Pantalón Cargo Street</h3>
                     <p class="precio">S/ 99.00</p>
                     <p class="descripcion">Pantalón de corte urbano con múltiples bolsillos funcionales y diseño ergonómico.</p>
-                    <a href="#" class="btn-comprar">Comprar ahora</a>
+                    <a href="#" class="btn-comprar" onclick="agregarAlCarrito(99); return false;">Comprar ahora</a>
                 </article>
 
             </div>
@@ -144,6 +145,51 @@
             <p>&copy; 2026 Urband Streetwear Perú S.A.C. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        let cantidad = 0;
+        let total = 0;
+
+        function actualizarCarrito() {
+            document.getElementById("carrito").textContent = "Carrito (" + cantidad + ") - S/ " + total.toFixed(2);
+        }
+
+        function agregarAlCarrito(precio) {
+            cantidad++;
+            total += precio;
+            actualizarCarrito();
+        }
+
+        function finalizarCompra() {
+            if (cantidad === 0) {
+                alert("Tu carrito está vacío. Agrega una prenda para continuar.");
+                return;
+            }
+
+            let descuento = 0;
+
+            if (total >= 200) {
+                descuento = total * 0.1;
+            }
+
+            let totalPagar = total - descuento;
+
+            let confirmar = confirm(
+                "Prendas: " + cantidad + "\n" +
+                "Subtotal: S/ " + total.toFixed(2) + "\n" +
+                "Descuento: S/ " + descuento.toFixed(2) + "\n" +
+                "Total a pagar: S/ " + totalPagar.toFixed(2) + "\n\n" +
+                "¿Deseas finalizar tu compra?"
+            );
+
+            if (confirmar) {
+                alert("Gracias por tu compra en Urband");
+                cantidad = 0;
+                total = 0;
+                actualizarCarrito();
+            }
+        }
+    </script>
 
 </body>
 </html>
