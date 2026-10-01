@@ -131,6 +131,38 @@
                 </article>
             </div>
         </section>
+
+        <section id="consulta" class="seccion-consulta">
+            <h2>Déjanos tu consulta</h2>
+            <form id="formulario-consulta" onsubmit="enviarConsulta(event)" novalidate>
+                <div class="campo">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" maxlength="40" required>
+                    <span class="error" id="error-nombre"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="telefono">Celular</label>
+                    <input type="tel" id="telefono" name="telefono" maxlength="9" required>
+                    <span class="error" id="error-telefono"></span>
+                </div>
+
+                <div class="campo campo-completo">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" required>
+                    <span class="error" id="error-correo"></span>
+                </div>
+
+                <div class="campo campo-completo">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" maxlength="300" required></textarea>
+                    <span class="error" id="error-mensaje"></span>
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar consulta</button>
+                <p id="resultado-consulta"></p>
+            </form>
+        </section>
     </main>
 
     <footer id="contacto" class="footer">
@@ -187,6 +219,38 @@
                 cantidad = 0;
                 total = 0;
                 actualizarCarrito();
+            }
+        }
+
+        function mostrarError(id, mensaje) {
+            document.getElementById("error-" + id).textContent = mensaje;
+        }
+
+        function validarCampo(id, condicion, mensaje) {
+            mostrarError(id, condicion ? "" : mensaje);
+            return condicion;
+        }
+
+        function enviarConsulta(evento) {
+            evento.preventDefault();
+
+            let nombre = document.getElementById("nombre").value.trim();
+            let correo = document.getElementById("correo").value.trim();
+            let telefono = document.getElementById("telefono").value.trim();
+            let mensaje = document.getElementById("mensaje").value.trim();
+
+            let nombreValido = validarCampo("nombre", /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,}$/.test(nombre), "Ingresa un nombre de al menos 3 letras.");
+            let correoValido = validarCampo("correo", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo), "Ingresa un correo válido.");
+            let telefonoValido = validarCampo("telefono", /^9\d{8}$/.test(telefono), "Ingresa un celular de 9 dígitos que empiece con 9.");
+            let mensajeValido = validarCampo("mensaje", mensaje.length >= 10, "El mensaje debe tener al menos 10 caracteres.");
+
+            let resultado = document.getElementById("resultado-consulta");
+
+            if (nombreValido && correoValido && telefonoValido && mensajeValido) {
+                resultado.textContent = "Gracias " + nombre + ", recibimos tu consulta.";
+                document.getElementById("formulario-consulta").reset();
+            } else {
+                resultado.textContent = "";
             }
         }
     </script>
